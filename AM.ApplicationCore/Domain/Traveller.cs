@@ -10,14 +10,11 @@ namespace AM.ApplicationCore.Domain
     {
         public string HealthInformation { get; set; }
         public string Nationality { get; set; }
-        public override string ToString()
-        {
-            return "Health Information: " + HealthInformation + "Nationality: " + Nationality;
-        }
+
         public override void PassengerType()
         {
             base.PassengerType();
-            Console.WriteLine("I am a traveller");
+            Console.WriteLine("and I'm a traveller");
         }
     }
 }

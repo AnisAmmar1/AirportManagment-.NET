@@ -1,44 +1,59 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace AM.ApplicationCore.Domain
 {
+   
     public class Passenger
     {
-        public DateTime BirthDate { get; set; }
-        public int PassportNumber { get; set; }
-        public string EmailAdress { get; set; }
+        public int Id { get; set; }
+        public string? PassportNumber { get; set; }
         public string FirstName { get; set; }
+
         public string LastName { get; set; }
-        public int TelNumber { get; set; }
-        public ICollection<Flight> flights { get; set; }
+
+        public DateTime BirthDate { get; set; }
+        public int? TelNumber { get; set; }
+        public string? EmailAddress { get; set; }
+
+        public virtual List<Flight> Flights { get; set; }
+
         public override string ToString()
         {
-            return "First Name= " + FirstName + "Last Name= " + LastName;
+            return "FirstName: " + FirstName + " LastName: " + LastName + " date of Birth: " + BirthDate;
         }
-        //public bool CheckProfile(string firstname, string lastname)
-        //{
-        //    return FirstName == firstname && LastName == lastname;
-        //}
-        //public bool CheckProfile(string firstname, string lastname, string emailadresse)
-        //{
-        //    return FirstName == firstname && LastName == lastname && EmailAdress == emailadresse;
-        //}
-        public bool CheckProfile(string firstname, string lastname, string emailadresse = null)
+        //Le polymorphisme par signature
+
+        //1-
+
+        public bool CheckProfile(string firstName, string lastName)
         {
-            if (emailadresse != null)
-                return FirstName == firstname && LastName == lastname && EmailAdress == emailadresse;
-            else
-                return FirstName == firstname && LastName == lastname;
+            return FirstName == firstName && LastName == lastName;
         }
+
+        //2-
+
+        public bool CheckProfile(string firstName, string lastName, string email)
+        {
+            return FirstName == firstName && LastName == lastName && EmailAddress == email;
+        }
+
+        // 3- 
+        public bool login(string firstName, string lastName, string email = null)
+        {
+            if (email != null)
+                return FirstName == firstName && LastName == lastName && EmailAddress == email;
+
+                return CheckProfile(firstName, lastName);   
+        }
+        // Polymorphisme par héritge
         public virtual void PassengerType()
         {
             Console.WriteLine("I am a Passenger");
-
         }
     }
 }

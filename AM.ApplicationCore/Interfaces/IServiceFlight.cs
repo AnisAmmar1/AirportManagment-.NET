@@ -9,13 +9,14 @@ namespace AM.ApplicationCore.Interfaces
 {
     public interface IServiceFlight
     {
-        IEnumerable<DateTime> GetFlightDates(string destination);
+        List<DateTime> GetFlightDates(string destination);
         void GetFlights(string filterType, string filterValue);
         void ShowFlightDetails(Plane plane);
         int ProgrammedFlightNumber(DateTime startDate);
         double DurationAverage(string destination);
         IEnumerable<Flight> OrderedDurationFlights();
-        IEnumerable<Traveller> SeniorTravellers(Flight flight);
+        IEnumerable<Traveller> SeniorTravellers(Flight f);
         IEnumerable<IGrouping<string, Flight>> DestinationGroupedFlights();
+
     }
 }
